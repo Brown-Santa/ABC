@@ -82,6 +82,16 @@ header.scrolled{box-shadow:0 10px 30px -20px rgba(19,33,63,.45)}
 /* paths */
 .path{display:flex;flex-direction:column}.path .ic{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--sky);color:var(--navy);font-size:22px}
 .path h3{margin-top:18px;font-size:22px}.path p{color:var(--mute);margin:10px 0 18px}.path a{margin-top:auto;font-weight:700;color:var(--orange2)}
+/* services deck-deal animation */
+#services .grid{position:relative;grid-template-columns:repeat(3,1fr)}
+#services .path{position:relative;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .6s ease,box-shadow .35s,border-color .35s}
+#services .path:nth-child(1){z-index:3;opacity:0;transform:translateY(30px) scale(.96)}
+#services .path:nth-child(2){z-index:2;transform:translateX(calc(-100% - 18px)) scale(.94);transition-delay:.55s}
+#services .path:nth-child(3){z-index:1;transform:translateX(calc(-200% - 36px)) scale(.88);transition-delay:1.05s}
+#services .deal .path{opacity:1;transform:none}
+#services .deal .path:hover{transform:translateY(-6px);transition-delay:0s;box-shadow:0 24px 48px -24px rgba(19,33,63,.35)}
+@media(max-width:924px){#services .grid{grid-template-columns:1fr}#services .path:nth-child(2){transform:translateY(calc(-100% - 18px)) scale(.94)}#services .path:nth-child(3){transform:translateY(calc(-200% - 36px)) scale(.88)}#services .deal .path{transform:none}}
+@media(prefers-reduced-motion:reduce){#services .path{opacity:1!important;transform:none!important}}
 /* steps */
 .step{position:relative}.step .n{font-size:42px;font-weight:800;color:var(--orange);line-height:1}.step h3{margin-top:12px;font-size:19px}.step p{margin:8px 0 0;color:var(--mute)}
 /* criteria checker */
@@ -400,13 +410,17 @@ fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormD
 
 // motion
 document.addEventListener('DOMContentLoaded',function(){
-var els=[].slice.call(document.querySelectorAll('section:not(.hero) .eyebrow, section:not(.hero) h2, section:not(.hero) .card, details, .cta'));
+var els=[].slice.call(document.querySelectorAll('section:not(.hero) .eyebrow, section:not(.hero) h2, section:not(.hero) .card:not(.path), details, .cta'));
 els.forEach(function(el){el.classList.add('rv');if(el.classList.contains('card'))el.classList.add('lift');var sib=[].slice.call(el.parentElement.children);el.style.transitionDelay=Math.min(sib.indexOf(el),5)*80+'ms'});
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){io.observe(el)})}else els.forEach(function(el){el.classList.add('in')});
 function chk(){els.forEach(function(el){if(!el.classList.contains('in')&&el.getBoundingClientRect().top<innerHeight-30)el.classList.add('in')})}
 setTimeout(chk,300);
 var h=document.querySelector('header');addEventListener('scroll',function(){h.classList.toggle('scrolled',scrollY>10);chk()},{passive:true});
 document.querySelectorAll('.step .n,[data-count]').forEach(function(n){var t=n.textContent,m=t.match(/^(\$?)(\d+)$/);if(!m)return;var end=+m[2];var o=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;o.disconnect();var st=performance.now();(function f(now){var q=Math.min((now-st)/1100,1);n.textContent=m[1]+String(Math.round(end*(1-Math.pow(1-q,3)))).padStart(m[2].length,'0');if(q<1)requestAnimationFrame(f)})(st)});o.observe(n)});
+
+var deck=document.querySelector('#services .grid');
+var dk=new IntersectionObserver(function(es){if(es[0].isIntersecting){setTimeout(function(){deck.classList.add('deal')},150);dk.disconnect()}},{threshold:.3});dk.observe(deck);
+addEventListener('scroll',function(){if(deck.getBoundingClientRect().top<innerHeight*.75)deck.classList.add('deal')},{passive:true});
 
 // red-flag cards: play in sequence when visible
 var myths=[].slice.call(document.querySelectorAll('.myth'));
