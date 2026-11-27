@@ -95,7 +95,23 @@ header.scrolled{box-shadow:0 10px 30px -20px rgba(19,33,63,.45)}
 @media(max-width:924px){#services .grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){#services .path{opacity:1!important;filter:none!important;transform:none!important}}
 /* steps */
-.step{position:relative}.step .n{font-size:42px;font-weight:800;color:var(--orange);line-height:1}.step h3{margin-top:12px;font-size:19px}.step p{margin:8px 0 0;color:var(--mute)}
+#how .grid{perspective:1200px}
+.step{position:relative;overflow:hidden;padding-top:34px}
+.step .ghost{position:absolute;right:16px;top:-14px;font-size:104px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(233,139,15,.35);letter-spacing:-.04em;transition:color .4s,-webkit-text-stroke-color .4s,transform .5s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.step .bar-top{position:absolute;left:0;right:0;top:0;height:4px;background:#F1EFEA}
+.step .bar-top i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--orange));transition:width .9s calc(var(--sd,0s) + .5s) cubic-bezier(.7,0,.2,1)}
+.sh{display:flex;align-items:center;gap:12px;position:relative}
+.si{width:44px;height:44px;border-radius:14px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 20px -10px rgba(19,33,63,.6);transition:background .3s,transform .4s cubic-bezier(.3,1.6,.5,1)}
+.sl{font-size:12px;font-weight:800;letter-spacing:.16em;color:var(--orange2)}.sl b{font-weight:800}
+.step h3{margin-top:18px;font-size:20px;position:relative}.step p{position:relative}
+.step:hover .ghost{color:rgba(233,139,15,.12);-webkit-text-stroke-color:rgba(233,139,15,.7);transform:translateY(6px) scale(1.04)}
+.step:hover .si{background:var(--orange);transform:rotate(-8deg) scale(1.08)}
+#how .step{opacity:0;transform:translateY(50px) rotateX(-28deg);transform-origin:50% 100%;transition:opacity .7s var(--sd,0s),transform .9s var(--sd,0s) cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s}
+#how .flow .step{opacity:1;transform:none}
+#how .flow .step .bar-top i{width:100%}
+#how .flow .step:hover{transform:translateY(-6px);transition-delay:0s;box-shadow:0 24px 48px -24px rgba(19,33,63,.35)}
+#how .step:last-child{background:linear-gradient(160deg,#fff 40%,var(--tint))}
+@media(prefers-reduced-motion:reduce){#how .step{opacity:1!important;transform:none!important}.step .bar-top i{width:100%!important}}
 /* criteria checker */
 .checker{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
 .chips{display:flex;flex-wrap:wrap;gap:10px;flex:1 1 460px}
@@ -265,12 +281,12 @@ footer h4{color:#fff;margin:0 0 12px;font-size:15px}footer a{color:#D7DEEA}foote
 <div class="eyebrow">How it works</div>
 <h2>A flexible model. <span class="serif">Not a fixed bundle.</span></h2>
 <div class="grid g3" style="margin-top:48px">
-<div class="card step"><div class="n">01</div><h3>Free consultation</h3><p>A 30-minute call to understand your background and goals.</p></div>
-<div class="card step"><div class="n">02</div><h3>Start with FOE</h3><p>We identify, draft and refine your Field of Expertise.</p></div>
-<div class="card step"><div class="n">03</div><h3>Get your evaluation</h3><p>A written report on all 10 criteria with scores and next steps.</p></div>
-<div class="card step"><div class="n">04</div><h3>Choose what you need</h3><p>Pick the criteria you want support with. Nothing is bundled.</p></div>
-<div class="card step"><div class="n">05</div><h3>Work criterion by criterion</h3><p>Agreed scope, deliverables and timeline for each service.</p></div>
-<div class="card step"><div class="n">06</div><h3>Hand over to your attorney</h3><p>You get organized evidence. Your attorney handles the filing.</p></div>
+<div class="card step"><div class="ghost">01</div><div class="bar-top"><i></i></div><div class="sh"><span class="si"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></span><span class="sl">STEP <b class="n">01</b></span></div><h3>Free consultation</h3><p>A 30-minute call to understand your background and goals.</p></div>
+<div class="card step"><div class="ghost">02</div><div class="bar-top"><i></i></div><div class="sh"><span class="si"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></span><span class="sl">STEP <b class="n">02</b></span></div><h3>Start with FOE</h3><p>We identify, draft and refine your Field of Expertise.</p></div>
+<div class="card step"><div class="ghost">03</div><div class="bar-top"><i></i></div><div class="sh"><span class="si"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 14l2 2 4-4"/></svg></span><span class="sl">STEP <b class="n">03</b></span></div><h3>Get your evaluation</h3><p>A written report on all 10 criteria with scores and next steps.</p></div>
+<div class="card step"><div class="ghost">04</div><div class="bar-top"><i></i></div><div class="sh"><span class="si"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg></span><span class="sl">STEP <b class="n">04</b></span></div><h3>Choose what you need</h3><p>Pick the criteria you want support with. Nothing is bundled.</p></div>
+<div class="card step"><div class="ghost">05</div><div class="bar-top"><i></i></div><div class="sh"><span class="si"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span class="sl">STEP <b class="n">05</b></span></div><h3>Work criterion by criterion</h3><p>Agreed scope, deliverables and timeline for each service.</p></div>
+<div class="card step"><div class="ghost">06</div><div class="bar-top"><i></i></div><div class="sh"><span class="si"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18v10H3z"/><path d="M8 10V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 14h18"/></svg></span><span class="sl">STEP <b class="n">06</b></span></div><h3>Hand over to your attorney</h3><p>You get organized evidence. Your attorney handles the filing.</p></div>
 </div>
 <p class="center" style="margin-top:28px;font-weight:700;color:var(--navy)">You stay in control of which services you buy.</p>
 </div>
@@ -438,7 +454,7 @@ fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormD
 
 // motion
 document.addEventListener('DOMContentLoaded',function(){
-var els=[].slice.call(document.querySelectorAll('section:not(.hero) .eyebrow, section:not(.hero) h2, section:not(.hero) .card:not(.path), details, .cta'));
+var els=[].slice.call(document.querySelectorAll('section:not(.hero) .eyebrow, section:not(.hero) h2, section:not(.hero) .card:not(.path):not(.step), details, .cta'));
 els.forEach(function(el){el.classList.add('rv');if(el.classList.contains('card'))el.classList.add('lift');var sib=[].slice.call(el.parentElement.children);el.style.transitionDelay=Math.min(sib.indexOf(el),5)*80+'ms'});
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){io.observe(el)})}else els.forEach(function(el){el.classList.add('in')});
 function chk(){els.forEach(function(el){if(!el.classList.contains('in')&&el.getBoundingClientRect().top<innerHeight-30)el.classList.add('in')})}
@@ -459,6 +475,12 @@ cg.style.position='relative';
 var cgo=new IntersectionObserver(function(es){if(es[0].isIntersecting){magic();cgo.disconnect()}},{threshold:.4});cgo.observe(cg);
 addEventListener('scroll',function(){if(cg.getBoundingClientRect().top<innerHeight*.75)magic()},{passive:true});
 cg.addEventListener('click',function(e){var c=e.target.closest('.chip');if(c&&c.classList.contains('on'))sparkle(c)});
+
+// steps flow-in
+var sg=document.querySelector('#how .grid');
+[].slice.call(sg.children).forEach(function(c,i){c.style.setProperty('--sd',(i*0.15)+'s')});
+var sgo=new IntersectionObserver(function(es){if(es[0].isIntersecting){sg.classList.add('flow');sgo.disconnect()}},{threshold:.2});sgo.observe(sg);
+addEventListener('scroll',function(){if(sg.getBoundingClientRect().top<innerHeight*.75)sg.classList.add('flow')},{passive:true});
 
 // red-flag cards: play in sequence when visible
 var myths=[].slice.call(document.querySelectorAll('.myth'));
