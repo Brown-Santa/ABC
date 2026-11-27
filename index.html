@@ -99,7 +99,8 @@ header.scrolled{box-shadow:0 10px 30px -20px rgba(19,33,63,.45)}
 /* criteria checker */
 .checker{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
 .chips{display:flex;flex-wrap:wrap;gap:10px;flex:1 1 460px}
-.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:10px 16px;font:inherit;font-size:14px;font-weight:600;color:var(--navy);cursor:pointer;transition:all .2s}
+.chip{display:inline-flex;align-items:center;gap:9px;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px 9px 12px;font:inherit;font-size:14px;font-weight:600;color:var(--navy);cursor:pointer;transition:all .2s}
+.chip svg{color:var(--orange2);flex:none;transition:transform .3s cubic-bezier(.3,1.6,.5,1),color .2s}.chip:hover svg{transform:scale(1.15) rotate(-6deg)}.chip.on svg{color:var(--orange)}
 .chip:hover{border-color:var(--navy)}.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .meter{flex:1 1 320px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px}
 .bar{height:10px;background:#EEF0F4;border-radius:999px;overflow:hidden;margin:14px 0}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--orange));transition:width .5s}
@@ -218,9 +219,9 @@ footer h4{color:#fff;margin:0 0 12px;font-size:15px}footer a{color:#D7DEEA}foote
 <div class="wrap">
 <div class="center"><div class="eyebrow">Where are you today?</div><h2>Wherever you are, we start with your needs.</h2></div>
 <div class="grid g3" style="margin-top:48px">
-<div class="card path"><div class="ic">🧭</div><h3>Exploring EB-1A</h3><p>You’re learning about the pathway and want to know how your experience may fit the criteria.</p><a href="#checker">Take the free criteria check →</a></div>
-<div class="card path"><div class="ic">🛠️</div><h3>Building your profile</h3><p>You know which criteria you want help with. Pick only those, scoped together.</p><a href="#pricing">See à la carte services →</a></div>
-<div class="card path"><div class="ic">📄</div><h3>See what you’ll get</h3><p>Every client starts with a clear, written evaluation. See a sample with a fictional client.</p><a href="sample-report.pdf" target="_blank" rel="noopener">View sample report →</a></div>
+<div class="card path"><div class="ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></div><h3>Exploring EB-1A</h3><p>You’re learning about the pathway and want to know how your experience may fit the criteria.</p><a href="#checker">Take the free criteria check →</a></div>
+<div class="card path"><div class="ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l3-1 9.5-9.5-2-2L4 18z"/><path d="M14.5 6.5l3-3a3 3 0 0 1 3 3l-3 3"/><path d="M12.5 8.5l3 3"/></svg></div><h3>Building your profile</h3><p>You know which criteria you want help with. Pick only those, scoped together.</p><a href="#pricing">See à la carte services →</a></div>
+<div class="card path"><div class="ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div><h3>See what you’ll get</h3><p>Every client starts with a clear, written evaluation. See a sample with a fictional client.</p><a href="sample-report.pdf" target="_blank" rel="noopener">View sample report →</a></div>
 </div>
 </div>
 </section>
@@ -388,9 +389,21 @@ var SHEET_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 // criteria checker
-var crit=["Awards","Memberships","Published material about you","Judging others' work","Original contributions","Scholarly articles","Exhibitions","Leading / critical role","High salary","Commercial success (arts)"];
+var I={
+award:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.6 3.9M17 6h2.5a2.5 2.5 0 0 1-2.6 3.9"/>',
+member:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.6-1.3 1.7-2 3-2s2.4.7 3 2M15 10h3M15 13h3"/>',
+press:'<path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2M7 9h7M7 12h7M7 15h4"/>',
+judge:'<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',
+idea:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.5.5.8 1.1.8 1.8V16h6v-.6c0-.7.3-1.3.8-1.8A6 6 0 0 0 12 3z"/>',
+book:'<path d="M2 5h6a4 4 0 0 1 4 4v11a3 3 0 0 0-3-3H2zM22 5h-6a4 4 0 0 0-4 4v11a3 3 0 0 1 3-3h7z"/>',
+frame:'<rect x="3" y="4" width="18" height="15" rx="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="15.5" cy="8.5" r="1.5"/>',
+lead:'<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>',
+pay:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/>',
+ticket:'<path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v2M14 11v2M14 16v2"/>'};
+function svg(k){return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+I[k]+'</svg>'}
+var crit=[["Awards","award"],["Memberships","member"],["Published material about you","press"],["Judging others' work","judge"],["Original contributions","idea"],["Scholarly articles","book"],["Exhibitions","frame"],["Leading / critical role","lead"],["High salary","pay"],["Commercial success (arts)","ticket"]];
 var chips=document.getElementById('chips'),picked=[];
-crit.forEach(function(c){var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=c;b.onclick=function(){b.classList.toggle('on');var i=picked.indexOf(c);i<0?picked.push(c):picked.splice(i,1);upd()};chips.appendChild(b)});
+crit.forEach(function(x){var c=x[0],b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed','false');b.innerHTML=svg(x[1])+'<span>'+c+'</span>';b.onclick=function(){b.classList.toggle('on');b.setAttribute('aria-pressed',b.classList.contains('on'));var i=picked.indexOf(c);i<0?picked.push(c):picked.splice(i,1);upd()};chips.appendChild(b)});
 function upd(){var n=picked.length;document.getElementById('cnt').textContent=n;document.getElementById('fill').style.width=n*10+'%';
 document.getElementById('verdict').textContent=n===0?'Tap the areas that apply to you.':n<3?'A starting point. Most profiles need focused building in a few more areas.':n<5?'Promising. The next step is checking how strong each piece of evidence is.':'A strong base to work with. Let’s check the quality of the evidence.';
 document.querySelector('[name=criteria]').value=picked.join(', ')}
